@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({
   orderBy: {
-    id: 'DESC'
-  }
+    id: 'DESC',
+  },
 })
 export class Todo {
   @PrimaryGeneratedColumn()
@@ -17,4 +17,7 @@ export class Todo {
 
   @Column()
   clientId: string;
+
+  @Column()
+  userId: number;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsBoolean, IsOptional } from 'class-validator';
+import { IsString, IsBoolean, IsOptional, IsNumber } from 'class-validator';
 
 export class UpdateTodoDto {
   @ApiProperty({ description: 'The updated text of the todo item', required: false })
@@ -11,4 +11,9 @@ export class UpdateTodoDto {
   @IsOptional()
   @IsBoolean()
   readonly completed: boolean;
+  
+  @ApiProperty({ description: 'The updated user assigned to the todo item', required: false })
+  @IsOptional()
+  @IsNumber()
+  readonly userId: number;
 }
