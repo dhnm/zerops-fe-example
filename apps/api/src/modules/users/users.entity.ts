@@ -14,4 +14,7 @@ export class User {
 
   @Column()
   avatarUrl: string;
+
+  @Column()
+  clientId: string;
 }

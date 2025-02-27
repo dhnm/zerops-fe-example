@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -29,8 +30,8 @@ export class UsersController {
   @Get()
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'List of users.' })
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query('clientId') clientId: string) {
+    return this.usersService.findAll(clientId);
   }
 
   @Delete(':id')
