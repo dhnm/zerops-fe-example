@@ -1,7 +1,9 @@
 <form
   class="__form"
   (submit)="add.emit(formControls().getRawValue())"
-  [formGroup]="formControls()">
+  [formGroup]="formControls()"
+>
+  <z-users-list></z-users-list>
 
   <div>
     <mat-form-field>
@@ -25,9 +27,8 @@
     mat-raised-button
     [disabled]="!formControls().valid"
     class="__button"
-    type="submit">
+    type="submit"
+  >
     Přidat úkol
   </button>
-
 </form>
-

@@ -2,9 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
-  output
+  output,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -13,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { TodoAddFormInstance } from './todo-add-form.form';
 import { TodoAddPayload } from '../../core/todos-base/todos.model';
+import { UsersListComponent } from '../users-list/users-list.component';
 
 @Component({
   selector: 'z-todo-add-form',
@@ -24,11 +24,12 @@ import { TodoAddPayload } from '../../core/todos-base/todos.model';
     MatInputModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    MatButtonModule
-  ]
+    MatButtonModule,
+    UsersListComponent,
+  ],
 })
 export class TodoAddFormComponent {
   formInstance = input.required<TodoAddFormInstance>();
-  formControls = computed(() => this.formInstance().getControls())
+  formControls = computed(() => this.formInstance().getControls());
   add = output<TodoAddPayload>();
 }
