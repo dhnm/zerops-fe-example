@@ -54,6 +54,10 @@ export class TodoAddFormComponent {
   );
   selectedUserId = signal<number>(0);
   userId = computed(() => this.selectedUserId() || this.firstUserId());
+  placeholder = computed(() => {
+    const user = this.users().find((user) => user.id === this.userId());
+    return user ? `Popis úkolu pro ${user.name}...` : 'Popis úkolu...';
+  });
 
   constructor() {
     effect(() => {
