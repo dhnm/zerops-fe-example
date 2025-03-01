@@ -28,4 +28,10 @@ export class UserAddDialogComponent {
   formInstance = inject(UserAddFormInstance);
   formControls = computed(() => this.formInstance.getControls());
   dialogRef = inject(MatDialogRef);
+
+  constructor() {
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.formInstance.reset();
+    });
+  }
 }
