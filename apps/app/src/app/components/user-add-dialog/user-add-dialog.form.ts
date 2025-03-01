@@ -13,7 +13,10 @@ export class UserAddFormInstance {
       nonNullable: true,
     }),
     avatarUrl: new FormControl<string>(this.#defaultValues.avatarUrl, {
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        Validators.pattern('^(https://)?(?:[A-Za-z0-9-]+.)+[A-Za-z]{2,}(/.+)$'),
+      ],
       nonNullable: true,
     }),
   });
