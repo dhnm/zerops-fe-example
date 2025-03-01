@@ -1,3 +1,32 @@
-<div class="__user-avatar-wrap">
-  <button mat-raised-button (click)="openAddUserDialog()">+</button>
-</div>
+@for (user of users(); track user.id) {
+<button
+  mat-fab
+  [color]="user.id == userId() ? 'primary' : 'accent'"
+  title="{{ user.name }}"
+  type="button"
+  (click)="selectUser(user.id)"
+>
+  <img src="{{ user.avatarUrl }}" alt="{{ user.name }}" class="avatar-image" />
+</button>
+}
+<!-- To Be Implemented
+<button
+  mat-fab
+  color="primary"
+  type="button"
+  class="dialog-button"
+  title="Upravit uživatele"
+>
+  <mat-icon>edit</mat-icon>
+</button>
+-->
+<button
+  (click)="openAddUserDialog()"
+  mat-fab
+  color="primary"
+  type="button"
+  class="dialog-button"
+  title="Přidat uživatele"
+>
+  <mat-icon>add</mat-icon>
+</button>

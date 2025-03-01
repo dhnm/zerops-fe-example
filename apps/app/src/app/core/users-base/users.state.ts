@@ -12,6 +12,7 @@ import {
   FEATURE_NAME,
   UserAddPayload,
   UserAddResponse,
+  UserEntity,
   UsersState,
 } from './users.model';
 import { inject } from '@angular/core';
@@ -29,6 +30,10 @@ export const usersActions = createActionGroup({
       res: UserAddResponse;
     }>(),
     'add fail': emptyProps(),
+
+    search: props<{ clientId: string }>(),
+    'search success': props<{ res: UserEntity[] }>(),
+    'search fail': emptyProps(),
   },
 });
 
@@ -36,6 +41,10 @@ export const usersState = createFeature({
   name: FEATURE_NAME,
   reducer: createReducer(
     initialState,
+    on(usersActions.searchSuccess, (state, { res }) => ({
+      ...state,
+      data: res,
+    })),
     on(usersActions.addSuccess, (state, { res }) => ({
       ...state,
       data: [res, ...state.data],

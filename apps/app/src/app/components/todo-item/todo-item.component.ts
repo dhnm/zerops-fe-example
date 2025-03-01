@@ -2,14 +2,14 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import {
   ChangeDetectionStrategy,
   Component,
   effect,
   input,
-  output
+  output,
 } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,7 +17,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { TodoEntity, TodoUpdatePayload } from '../../core/todos-base/todos.model';
+import {
+  TodoEntity,
+  TodoUpdatePayload,
+} from '../../core/todos-base/todos.model';
 
 @Component({
   selector: 'z-todo-item',
@@ -31,19 +34,20 @@ import { TodoEntity, TodoUpdatePayload } from '../../core/todos-base/todos.model
     MatCheckboxModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
-  ]
+    MatIconModule,
+  ],
 })
 export class TodoItemComponent {
   form = new FormGroup({
     text: new FormControl<string>('', {
       validators: [Validators.required],
-      nonNullable: true
+      nonNullable: true,
     }),
-    completed: new FormControl<boolean>(
-      false,
-      { nonNullable: true }
-    )
+    completed: new FormControl<boolean>(false, { nonNullable: true }),
+    userId: new FormControl<number>(0, {
+      nonNullable: true,
+      validators: [Validators.min(1)],
+    }),
   });
 
   data = input.required<TodoEntity>();
@@ -57,7 +61,8 @@ export class TodoItemComponent {
 
       this.form.setValue({
         completed: value.completed,
-        text: value.text
+        text: value.text,
+        userId: value.userId,
       });
     });
   }

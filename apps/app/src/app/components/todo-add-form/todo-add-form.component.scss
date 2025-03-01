@@ -13,3 +13,11 @@
 .__button {
   width: 100%;
 }
+
+z-users-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto auto;
+  gap: 10px;
+  margin-bottom: 32px;
+}

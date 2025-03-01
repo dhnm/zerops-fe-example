@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { UserAddPayload, UserAddResponse } from './users.model';
+import { UserAddPayload, UserAddResponse, UserEntity } from './users.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +16,11 @@ export class UsersApi {
       ...data,
       clientId: this.#clientId,
     });
+  }
+
+  search$() {
+    return this.#httpClient.get<UserEntity[]>(
+      `${this.#apiUrl}?clientId=${this.#clientId}`
+    );
   }
 }

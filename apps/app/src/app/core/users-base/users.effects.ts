@@ -14,6 +14,18 @@ export class UsersEffects implements OnInitEffects {
   #snack = inject(MatSnackBar);
 
   // effects
+  searchOnInit$ = createEffect(() =>
+    this.#actions$.pipe(
+      ofType(usersActions.init),
+      switchMap(() =>
+        this.#api.search$().pipe(
+          map((res) => usersActions.searchSuccess({ res })),
+          catchError(() => of(usersActions.searchFail()))
+        )
+      )
+    )
+  );
+
   add$ = createEffect(() =>
     this.#actions$.pipe(
       ofType(usersActions.add),

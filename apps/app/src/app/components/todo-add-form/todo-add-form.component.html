@@ -3,7 +3,12 @@
   (submit)="add.emit(formControls().getRawValue())"
   [formGroup]="formControls()"
 >
-  <z-users-list></z-users-list>
+  <z-users-list
+    [users]="users()"
+    [userId]="userId()"
+    (selectUserId)="selectedUserId.set($event)"
+  />
+  <input type="hidden" name="userId" [value]="selectedUserId()" />
 
   <div>
     <mat-form-field>

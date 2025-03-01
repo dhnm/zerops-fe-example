@@ -9,19 +9,26 @@ import { Todo } from './todos.entity';
 export class TodosService {
   constructor(
     @InjectRepository(Todo)
-    private todosRepository: Repository<Todo>,
-  ) { }
+    private todosRepository: Repository<Todo>
+  ) {}
 
   async create(createTodoDto: CreateTodoDto): Promise<Todo> {
-    return this.todosRepository.save(createTodoDto);
+    const todo = await this.todosRepository.save(createTodoDto);
+    return this.findOne(todo.id);
   }
 
   async findAll(clientId: string): Promise<Todo[]> {
-    return this.todosRepository.find({ where: { clientId }});
+    return this.todosRepository.find({
+      where: { clientId },
+      relations: ['user'],
+    });
   }
 
   async findOne(id: number): Promise<Todo> {
-    const data = await this.todosRepository.findOne({ where: { id } });
+    const data = await this.todosRepository.findOne({
+      where: { id },
+      relations: ['user'],
+    });
     if (!data) {
       throw new NotFoundException('todo not found');
     }
@@ -30,7 +37,7 @@ export class TodosService {
 
   async update(id: number, data: UpdateTodoDto): Promise<Todo> {
     const updatedData = await this.todosRepository.save({ id, ...data });
-    return updatedData;
+    return this.findOne(updatedData.id);
   }
 
   async remove(id: number): Promise<number> {
@@ -39,7 +46,9 @@ export class TodosService {
   }
 
   async markAllAsCompleted(clientId: string): Promise<void> {
-    await this.todosRepository.update({ completed: false, clientId }, { completed: true });
+    await this.todosRepository.update(
+      { completed: false, clientId },
+      { completed: true }
+    );
   }
-
 }

@@ -1,3 +1,5 @@
+import { UserEntity } from '../users-base/users.model';
+
 export const FEATURE_NAME = 'todos';
 
 export interface TodosState {
@@ -9,18 +11,22 @@ export interface TodoEntity {
   text: string;
   clientId: string;
   completed: boolean;
+  userId: number;
+  user: UserEntity;
 }
 
 export interface TodoAddPayload {
   text: string;
   completed: boolean;
+  userId: number;
 }
 
-export interface TodoAddResponse extends TodoEntity { }
+export interface TodoAddResponse extends TodoEntity {}
 
 export interface TodoUpdatePayload {
   text: string;
   completed: boolean;
+  userId: number;
 }
 
-export interface TodoUpdateResponse extends TodoEntity { }
+export interface TodoUpdateResponse extends TodoEntity {}
