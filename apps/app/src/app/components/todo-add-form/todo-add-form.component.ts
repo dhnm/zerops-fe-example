@@ -45,7 +45,6 @@ export class TodoAddFormComponent {
   });
   firstUserId = toSignal(
     this.#usersEntity.users$.pipe(
-      first(),
       map((users) => (users.length ? users[0].id : 0))
     ),
     {

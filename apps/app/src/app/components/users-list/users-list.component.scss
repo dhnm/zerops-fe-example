@@ -42,3 +42,8 @@ button.selected-user {
 .dialog-button:last-of-type {
   grid-column: 5;
 }
+
+.no-users-prompt {
+  grid-column: span 4;
+  text-align: right;
+}

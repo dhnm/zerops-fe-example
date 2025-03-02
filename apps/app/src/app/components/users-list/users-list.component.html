@@ -10,6 +10,8 @@
   <img src="{{ user.avatarUrl }}" alt="{{ user.name }}" class="avatar-image" />
 </button>
 }
+
+@if (users().length > 0) {
 <button
   (click)="openEditUsersDialog()"
   mat-fab
@@ -20,6 +22,10 @@
 >
   <mat-icon>edit</mat-icon>
 </button>
+} @else {
+<div class="no-users-prompt">Přidejte prvního uživatele</div>
+}
+
 <button
   (click)="openAddUserDialog()"
   mat-fab
