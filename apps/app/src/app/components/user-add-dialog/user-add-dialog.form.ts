@@ -3,16 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class UserAddFormInstance {
-  #defaultValues = {
-    name: '',
-    avatarUrl: '',
-  };
   #form = new FormGroup({
-    name: new FormControl<string>(this.#defaultValues.name, {
+    name: new FormControl<string>('', {
       validators: [Validators.required],
       nonNullable: true,
     }),
-    avatarUrl: new FormControl<string>(this.#defaultValues.avatarUrl, {
+    avatarUrl: new FormControl<string>(this.getRandomAvatarUrl(), {
       validators: [
         Validators.required,
         Validators.pattern('^(https://)?(?:[A-Za-z0-9-]+.)+[A-Za-z]{2,}(/.+)$'),
@@ -26,6 +22,14 @@ export class UserAddFormInstance {
   }
 
   reset() {
-    this.#form.reset(this.#defaultValues);
+    this.#form.reset({
+      name: '',
+      avatarUrl: this.getRandomAvatarUrl(),
+    });
+  }
+
+  private getRandomAvatarUrl() {
+    const randomId = Math.random().toString(36).slice(-8);
+    return `https://api.dicebear.com/9.x/open-peeps/svg?seed=${randomId}`;
   }
 }

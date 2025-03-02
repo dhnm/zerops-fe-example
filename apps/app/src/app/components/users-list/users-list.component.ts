@@ -37,7 +37,7 @@ export class UsersListComponent {
 
   openAddUserDialog(): void {
     const dialogRef = this.dialog.open(UserAddDialogComponent, {
-      width: '300px',
+      width: '350px',
     });
 
     dialogRef

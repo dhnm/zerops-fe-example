@@ -15,15 +15,22 @@
         required
       />
     </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        placeholder="URL avataru"
-        type="text"
-        formControlName="avatarUrl"
-        required
+    <div class="avatar-container">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="URL avataru"
+          type="text"
+          formControlName="avatarUrl"
+          required
+        />
+      </mat-form-field>
+      <img
+        src="{{ formControls().get('avatarUrl')?.value }}"
+        alt="Avatar"
+        class="avatar-image"
       />
-    </mat-form-field>
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
