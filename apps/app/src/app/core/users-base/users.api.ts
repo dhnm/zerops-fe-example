@@ -35,4 +35,8 @@ export class UsersApi {
       ...data,
     });
   }
+
+  delete$(id: number) {
+    return this.#httpClient.delete<void>(`${this.#apiUrl}/${id}`);
+  }
 }

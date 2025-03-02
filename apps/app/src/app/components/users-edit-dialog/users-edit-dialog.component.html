@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Upravit uživatele</h2>
 <mat-dialog-content>
-  @for (user of data.users; track user.id) {
+  @for (user of data.users(); track user.id) {
   <z-user-item
     [data]="user"
     (delete)="deleteUser.emit(user.id)"

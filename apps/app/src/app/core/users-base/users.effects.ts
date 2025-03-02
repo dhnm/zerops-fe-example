@@ -68,6 +68,27 @@ export class UsersEffects implements OnInitEffects {
     { dispatch: false }
   );
 
+  delete$ = createEffect(() =>
+    this.#actions$.pipe(
+      ofType(usersActions.delete),
+      switchMap(({ id }) =>
+        this.#api.delete$(id).pipe(
+          map(() => usersActions.deleteSuccess({ id })),
+          catchError(() => of(usersActions.deleteFail()))
+        )
+      )
+    )
+  );
+
+  onDeleteSuccessShowSnackbar$ = createEffect(
+    () =>
+      this.#actions$.pipe(
+        ofType(usersActions.deleteSuccess),
+        tap(() => this.#openSnack('Uživatel smazán'))
+      ),
+    { dispatch: false }
+  );
+
   #openSnack(message: string) {
     this.#snack.open(message, 'Zavřít', {
       horizontalPosition: 'start',

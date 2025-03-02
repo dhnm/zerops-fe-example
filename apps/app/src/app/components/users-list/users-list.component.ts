@@ -52,11 +52,15 @@ export class UsersListComponent {
   openEditUsersDialog(): void {
     const dialogRef = this.dialog.open(UsersEditDialogComponent, {
       width: '450px',
-      data: { users: this.users() },
+      data: { users: this.users },
     });
 
     dialogRef.componentInstance.updateUser.subscribe((payload) => {
       this.#store.dispatch(usersActions.update(payload));
+    });
+
+    dialogRef.componentInstance.deleteUser.subscribe((payload) => {
+      this.#store.dispatch(usersActions.delete({ id: payload }));
     });
   }
 }

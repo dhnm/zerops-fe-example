@@ -27,20 +27,26 @@ export const usersActions = createActionGroup({
   source: FEATURE_NAME,
   events: {
     init: emptyProps(),
+
+    search: props<{ clientId: string }>(),
+    'search success': props<{ res: UserEntity[] }>(),
+    'search fail': emptyProps(),
+
     add: props<{ payload: UserAddPayload }>(),
     'add success': props<{
       res: UserAddResponse;
     }>(),
     'add fail': emptyProps(),
+
     update: props<{ id: number; payload: UserUpdatePayload }>(),
     'update success': props<{
       res: UserUpdateResponse;
     }>(),
     'update fail': emptyProps(),
 
-    search: props<{ clientId: string }>(),
-    'search success': props<{ res: UserEntity[] }>(),
-    'search fail': emptyProps(),
+    delete: props<{ id: number }>(),
+    'delete success': props<{ id: number }>(),
+    'delete fail': emptyProps(),
   },
 });
 
@@ -61,6 +67,10 @@ export const usersState = createFeature({
       data: state.data.map((user) =>
         user.id === res.id ? { ...user, ...res } : user
       ),
+    })),
+    on(usersActions.deleteSuccess, (state, { id }) => ({
+      ...state,
+      data: state.data.filter((user) => user.id !== id),
     }))
   ),
 });
