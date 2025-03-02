@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserAddFormInstance } from './user-add-dialog.form';
+import { UserAddPayload } from '../../core/users-base/users.model';
 
 @Component({
   selector: 'z-user-add-dialog',
@@ -27,7 +28,8 @@ import { UserAddFormInstance } from './user-add-dialog.form';
 export class UserAddDialogComponent {
   formInstance = inject(UserAddFormInstance);
   formControls = computed(() => this.formInstance.getControls());
-  dialogRef = inject(MatDialogRef);
+  dialogRef =
+    inject<MatDialogRef<UserAddDialogComponent, UserAddPayload>>(MatDialogRef);
 
   constructor() {
     this.dialogRef.afterClosed().subscribe(() => {

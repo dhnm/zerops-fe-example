@@ -6,7 +6,6 @@ button {
   width: 56px;
   height: 56px;
   padding: 3px;
-
   &::ng-deep {
     .mdc-button__label {
       display: flex;
@@ -19,6 +18,20 @@ button {
     object-fit: cover;
     border-radius: 50%;
   }
+}
+
+button.user {
+  background-color: var(
+    --mat-fab-disabled-state-container-color,
+    color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent)
+  );
+}
+
+button.selected-user {
+  background-color: var(
+    --mdc-fab-container-color,
+    var(--mat-sys-primary-container)
+  );
 }
 
 .dialog-button {

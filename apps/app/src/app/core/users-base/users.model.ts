@@ -16,3 +16,10 @@ export interface UserAddPayload {
 }
 
 export interface UserAddResponse extends UserEntity {}
+
+export interface UserUpdatePayload {
+  name: string;
+  avatarUrl: string;
+}
+
+export interface UserUpdateResponse extends UserEntity {}

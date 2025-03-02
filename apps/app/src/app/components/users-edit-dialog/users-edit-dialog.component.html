@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Upravit uživatele</h2>
+<mat-dialog-content>
+  @for (user of data.users; track user.id) {
+  <z-user-item
+    [data]="user"
+    (delete)="deleteUser.emit(user.id)"
+    (update)="
+      updateUser.emit({
+        id: user.id,
+        payload: $event
+      })
+    "
+  />
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Zavřít</button>
+</mat-dialog-actions>

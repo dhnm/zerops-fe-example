@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog.component';
+import { UsersEditDialogComponent } from '../users-edit-dialog/users-edit-dialog.component';
 import { usersActions } from '../../core/users-base/users.state';
 import { Store } from '@ngrx/store';
 import { filter, map } from 'rxjs';
@@ -46,5 +47,16 @@ export class UsersListComponent {
         map((payload) => usersActions.add({ payload }))
       )
       .subscribe(this.#store);
+  }
+
+  openEditUsersDialog(): void {
+    const dialogRef = this.dialog.open(UsersEditDialogComponent, {
+      width: '450px',
+      data: { users: this.users() },
+    });
+
+    dialogRef.componentInstance.updateUser.subscribe((payload) => {
+      this.#store.dispatch(usersActions.update(payload));
+    });
   }
 }

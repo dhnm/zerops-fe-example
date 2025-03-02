@@ -1,7 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { UserAddPayload, UserAddResponse, UserEntity } from './users.model';
+import {
+  UserAddPayload,
+  UserAddResponse,
+  UserEntity,
+  UserUpdatePayload,
+  UserUpdateResponse,
+} from './users.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +17,12 @@ export class UsersApi {
   #apiUrl = `${process.env.Z_API_URL}/users`;
   #clientId = process.env.Z_CLIENT_ID;
 
+  search$() {
+    return this.#httpClient.get<UserEntity[]>(
+      `${this.#apiUrl}?clientId=${this.#clientId}`
+    );
+  }
+
   add$(data: UserAddPayload) {
     return this.#httpClient.post<UserAddResponse>(this.#apiUrl, {
       ...data,
@@ -18,9 +30,9 @@ export class UsersApi {
     });
   }
 
-  search$() {
-    return this.#httpClient.get<UserEntity[]>(
-      `${this.#apiUrl}?clientId=${this.#clientId}`
-    );
+  update$(id: number, data: UserUpdatePayload) {
+    return this.#httpClient.put<UserUpdateResponse>(`${this.#apiUrl}/${id}`, {
+      ...data,
+    });
   }
 }

@@ -47,6 +47,27 @@ export class UsersEffects implements OnInitEffects {
     { dispatch: false }
   );
 
+  update$ = createEffect(() =>
+    this.#actions$.pipe(
+      ofType(usersActions.update),
+      switchMap(({ id, payload }) =>
+        this.#api.update$(id, payload).pipe(
+          map((res) => usersActions.updateSuccess({ res })),
+          catchError(() => of(usersActions.updateFail()))
+        )
+      )
+    )
+  );
+
+  onUpdateSuccessShowSnackbar$ = createEffect(
+    () =>
+      this.#actions$.pipe(
+        ofType(usersActions.updateSuccess),
+        tap(() => this.#openSnack('Uživatel upraven'))
+      ),
+    { dispatch: false }
+  );
+
   #openSnack(message: string) {
     this.#snack.open(message, 'Zavřít', {
       horizontalPosition: 'start',

@@ -20,15 +20,11 @@
       </div>
 
       <div>
-        <button
-          mat-fab
-          color="primary"
-          title="{{ data().user.name }}"
-          type="button"
-        >
+        <button disabled mat-fab color="primary" type="button">
           <img
             src="{{ data().user.avatarUrl }}"
             alt="{{ data().user.name }}"
+            title="{{ data().user.name }}"
             class="avatar-image"
           />
         </button>

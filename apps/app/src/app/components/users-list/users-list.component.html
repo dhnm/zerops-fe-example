@@ -1,7 +1,8 @@
 @for (user of users(); track user.id) {
 <button
   mat-fab
-  [color]="user.id == userId() ? 'primary' : 'accent'"
+  class="user"
+  [class.selected-user]="user.id == userId()"
   title="{{ user.name }}"
   type="button"
   (click)="selectUser(user.id)"
@@ -9,8 +10,8 @@
   <img src="{{ user.avatarUrl }}" alt="{{ user.name }}" class="avatar-image" />
 </button>
 }
-<!-- To Be Implemented
 <button
+  (click)="openEditUsersDialog()"
   mat-fab
   color="primary"
   type="button"
@@ -19,7 +20,6 @@
 >
   <mat-icon>edit</mat-icon>
 </button>
--->
 <button
   (click)="openAddUserDialog()"
   mat-fab

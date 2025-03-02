@@ -14,6 +14,8 @@ import {
   UserAddResponse,
   UserEntity,
   UsersState,
+  UserUpdatePayload,
+  UserUpdateResponse,
 } from './users.model';
 import { inject } from '@angular/core';
 
@@ -30,6 +32,11 @@ export const usersActions = createActionGroup({
       res: UserAddResponse;
     }>(),
     'add fail': emptyProps(),
+    update: props<{ id: number; payload: UserUpdatePayload }>(),
+    'update success': props<{
+      res: UserUpdateResponse;
+    }>(),
+    'update fail': emptyProps(),
 
     search: props<{ clientId: string }>(),
     'search success': props<{ res: UserEntity[] }>(),
@@ -48,6 +55,12 @@ export const usersState = createFeature({
     on(usersActions.addSuccess, (state, { res }) => ({
       ...state,
       data: [res, ...state.data],
+    })),
+    on(usersActions.updateSuccess, (state, { res }) => ({
+      ...state,
+      data: state.data.map((user) =>
+        user.id === res.id ? { ...user, ...res } : user
+      ),
     }))
   ),
 });
