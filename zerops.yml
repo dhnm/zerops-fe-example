@@ -13,8 +13,7 @@ zerops:
         - node_modules
     run:
       start: node dist/apps/api/main.js
-      envVariables:
-        DB_URL: ${db_connectionString}
+
       ports:
         - port: 3000
           httpSupport: true
